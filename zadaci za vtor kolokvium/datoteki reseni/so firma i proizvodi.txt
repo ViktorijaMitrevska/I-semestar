@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, int *argv[]){
+FILE *fin, *fout;
+char red[100];
+char firma[30],proizvodi[40];
+int i,j,dalifirma,vozbor=0,brojac=0;
+if(argc!=3){
+    printf("nepravilen povik %s na datIn i datOUT\n",argv[0]);
+    return 0;
+}
+if(fin=fopen(argv[1],"r")==NULL){
+    printf("nemoze da se otvori vleznata datoteka\n");
+    return (-1);
+}
+if(fout=fopen(argv[2],"w")==NULL){
+    printf("nemoze da se otvori izleznata datoteka\n");
+    return (-1);
+}
+while((fgetc(fin))!=EOF){
+    dalifirma=1;
+    j=0;
+    for(i=0;i<strlen(red);i++){
+        if(dalifirma){
+            if(isalpha(red[i])){
+                vozbor=1;
+                firma[j]=red[i];
+                j++;
+            }
+            else {
+                if(vozbor==1){
+                    firma[j]='\0';
+                    fprintf(out,"%s",firma);
+                    j=0;
+                    dalifirma=0;
+                }
+                vozbor=0;
+            }
+        }
+        else{
+            if(isalpha(red[i])){
+                vozbor=1;
+                proizvod[j]=red[i];
+                j++;
+            }
+            else{
+                if(vozbor==1){
+                    proizvod[j]='\0';
+                    brojac++;
+                    fprintf(out,"#%s",proizvod);
+                    j=0;
+                    dalifirma=0;
+                }
+                vozbor=0;
+            }
+        }
+    }
+    fprintf(out,"%d\n",brojac);
+    brojac=0;
+}
+fclose(fin);
+fclose(fout);
+return 0;
+}

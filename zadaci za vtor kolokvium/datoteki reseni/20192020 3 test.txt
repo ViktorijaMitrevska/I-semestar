@@ -1,0 +1,68 @@
+/* Да се напише програма која ќе дозволи внесување на димензиите на две матрици од тастатура.
+Максималните можни димензии се 50x50. Притоа, доколку бројот на редиците во двете матрици се разликува,
+програмата треба да прикаже порака за грешка. Во спротивно, се вчитуваат елементите на двете матрици
+соодветно. Ако сумата од првиот и последниот елемент во колона од првата матрица е еднаква на сумата на
+првиот и последниот елемент во некоја од колоните на другата матрица, матриците треба да ги заменат двете
+колони меѓу себе. При тоа, доколку има повеќе колони од втората матрица кои го задоволуваат условот, се
+прави замена само со првата што го задоволува условот. Проверката се прави за секоја колона од првата
+матрица. На крајот да се испечати бројот на замени, како и променетите матрици*/
+#include <stdio.h>
+#include <stdlib.h>
+#define max 50
+
+int main(){
+    int a[max][max],b[max][max];
+    int i,j,red,kol,red1,kol1;
+    int dali;
+    printf("vnesi kolku redici ima matricata a\n");
+    scanf("%d",&red);
+    printf("vnesi kolku koloni ima matricata a\n");
+    scanf("%d",&kol);
+    printf("vnesi kolku redici ima matricata b\n");
+    scanf("%d",&red1);
+    printf("vnesi kolku koloni ima matricata b\n");
+    scanf("%d",&kol1);
+    dali=1;
+    for(i=0;i<red;i++){
+        if(a[i][0]!=b[i][0]){
+            dali=0;
+            break;
+        }
+    }
+    if(dali==1){
+        printf("redicite ne se ednakvi\n");
+    }
+    else {
+    for(i=0;i<red;i++){
+        for(j=0;j<kol;j++){
+            scanf("%d",&a[i][j]);
+        }
+    }
+   for(i=0;i<red1;i++){
+        for(j=0;j<kol1;j++){
+            scanf("%d",&b[i][j]);
+        }
+    }
+    for(j=0;j<kol;j++){
+        int zbir=0;
+        for(i=0;i<red;i++){
+            zbir+=a[i][j];
+        }
+    }
+    for(j=0;j<kol1;j++){
+        int zbir1=0;
+        for(i=0;i<red;i++){
+            zbir1+=b[i][j];
+        }
+    }
+    for(i=0;i<red;i++){
+    if(zbir==zbir1){
+        int pom =a[i][j];
+        a[i][j]=b[i][j];
+        b[i][j]=pom;
+    }
+    }
+    }
+return 0;
+}
+//ne e doresena 

@@ -1,0 +1,51 @@
+/*Да се напише програма за менаџирање на три сервери која како аргумент од командналинија прима имиња на две датотеки: една влезна датотека и една излезна
+датотека.Во секој ред на влезната датотека се сместени: име на скрипта (не содржи празно место) и колку минути се извршува таа скрипта на секој од трите сервери.
+Притоа, во влезната датотека податоците се одделени со едно празно место. Програмата воизлезна датотека, треба во посебен ред да ги запише имињата на оние
+ скрипти чие што просечно време на извршување на трите сервери е помало од 10 минути. Дополнително после името на скриптата, да се запише и просечното време на
+извршување, а на крај од излезната датотека да се запише колку такви скрипти постојат. Исто така, да се провери дали правилно се користи програмата,
+ако не, да се даде упатство за користење. Пример за валидни аргументи од командна линија: ./a.out p1.txt p2.txta.out p1.txt p2.txt
+Пример:
+Влезна датотека (p1.txt): Излезна датотека (p2.txt):
+Skripta1.sh 10 10 11       
+Skripta3.sh 10 10 10       
+Skripta2.sh 5 5 5*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#define max 100
+int main(){
+    char ime[20];//ime na skripta
+    int v1,v2,v3;// za kolku minuti se izvrsuva skriptata
+    int brojac=0;
+    float suma=0;
+    FILE *fin , *fout;
+    if(argc!=3){
+       printf("nevaliden pristap na %s do datoteka\n",argv[0]);
+        return 0;
+   }
+    if((fin=fopen("vlez.txt","r"))==NULL){
+        printf("ne moze da se otvori vleznata datoteka\n");
+        return (-1);
+    }
+    if((fout=fopen("izlez.txt","w"))==NULL){
+        printf("ne moze da se otvori izleznata datoteka\n");
+        return (-1);
+    }
+    while(fscanf(fin,"%s %d %d %d",ime,&v1,&v2,&v3)!=EOF){// se koristi samo dokolku tocno znaeme do kade se dvizi datotekata
+        suma=0;
+        suma=(float)(v1+v2+v3)/3;
+        if(suma<10){
+            brojac++;
+            fprintf(fout,"%s %2.f\n",ime,suma);
+        }
+
+    }
+    fprintf(fout,"%d\n",brojac);
+    fclose(fin);
+    fclose(fout);
+
+
+
+return 0;
+}

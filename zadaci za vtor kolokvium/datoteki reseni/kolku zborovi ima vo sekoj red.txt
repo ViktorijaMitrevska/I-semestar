@@ -1,0 +1,41 @@
+/* Да се напише програма која од датотека чие име се внесува преку командна линија ќе изброи
+колку зборови има во секој ред. Зборовите се составени од алфанумерички знаци и меѓусебно се
+одделени со бланко или интерпункциски знак. Ако името на датотеката не е зададено преку
+командна линија да се прочита од стандардниот влез, а доколку се внесат повеќе параметри да се
+сигнализира грешка при повикување на датотека*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+int main(int argc,char *argv[]){
+    int red=1,zbor=0,vozbor=0;
+    char c;
+    FILE *fin;
+    if((fin=fopen("text.txt","r"))==NULL){
+        printf("ne moze da se otvori vleznata datoteka\n");
+        return (-1);
+    }
+    while((c=fgetc(fin))!=EOF){
+          if(isalnum(c)){
+                if(!(vozbor)){
+                    vozbor=1;
+                }
+        }
+        else { if(vozbor){
+                vozbor=0;
+                zbor++;
+        }
+        if(c=='\n'){
+
+
+            printf("%d red %d zborovi",red,zbor);
+            zbor=0;
+            red++;
+        }
+
+    }
+    }
+    fclose(fin);
+return 0;
+}
+

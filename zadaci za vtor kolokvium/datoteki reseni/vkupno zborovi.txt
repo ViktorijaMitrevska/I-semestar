@@ -1,0 +1,33 @@
+* Да се напише програма која за дадена текстуална датотека “text.txt” ќе ги изброи зборовите.
+Зборовите се составени од алфанумерички знаци и се одделени со најмалку едно празно место или
+знаци за интерпункција.*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+int main(){
+    int brzbor=0;
+    int vozbor=0;
+    char c;
+    FILE *fin;
+    if((fin=fopen("text.txt","r"))==NULL){
+        printf("ne moze da se otvori vleznata datoteka\n");
+        return (-1);
+    }
+    while((c=fgetc(fin))!=EOF){
+          if(isalnum(c)){
+            if(!(vozbor)){
+              vozbor=1;
+          }
+        }
+        else {
+            if(vozbor){
+                vozbor=0;
+                brzbor++;
+            }
+        }
+    }
+   printf("vkupno zborovi %d\n",brzbor);
+    fclose(fin);
+return 0;
+}

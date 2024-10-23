@@ -1,0 +1,31 @@
+/* Да се напише програма која за дадена текстуална датотека чие што име се внесува од командната
+линија, ќе го одреди односот на самогласки и согласки..*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+int samoglaski(char c){
+    c=toupper(c);
+    if(c=='A'|| c=='E'||c=='I'||c=='O'||c=='U')return 1;
+    else return 0;
+}
+int main(int argc,char *argv[]){
+    int brsamoglaski=0,brsoglaski=0;
+    float br;
+    char c;
+    FILE *fin;
+    if((fin=fopen("text.txt","r"))==NULL){
+        printf("ne moze da se otvori vleznata datoteka\n");
+        return (-1);
+    }
+    while((c=fgetc(fin))!=EOF){
+          if(isalpha(c)){
+            if(samoglaski(c)){brsamoglaski++;}
+            else brsoglaski++;
+        }
+    }
+    br=(float)brsamoglaski/brsoglaski;
+   printf("soodnosot na %d/%d e %f\n",brsamoglaski,brsoglaski,br);
+    fclose(fin);
+return 0;
+}

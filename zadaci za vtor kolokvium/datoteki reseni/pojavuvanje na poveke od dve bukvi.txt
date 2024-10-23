@@ -1,0 +1,56 @@
+/*Да напише програма која за дадена текстуална датотека ќе ги испечати сите зборови во кои се
+јавуваат повеќе од две исти букви. Да не се прави разлика меѓу големи и мали букви. На кајот да се
+отпечати колку такви зборови биле пронајдени. Зборовите се составени само од букви, а меѓусебно
+се одделени со најмалку еден специјален знак, цифра или белина. Се смета дека во текстот нема
+зборови подолги од 20 знаци. Името на датотеката се задава од командна линија.*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+int proverka (char *c)
+{
+    int i, j, vk=0;
+    for (i=0; i<strlen(c); i++){
+        vk=0;
+        for(j=0;j<strlen(c);j++){
+            if(toupper(*(c+i))==toupper(*(c+j))){
+                vk++;
+            }
+        }
+        if(vk>2)return 1;
+    }
+return 0;
+}
+
+int main(int argc,char *argv[]){
+    char c;
+    int vozbor=0,j=0,vk=0;
+    char zbor[20];
+    FILE *fin;
+    if((fin=fopen("text.txt","r"))==NULL){
+        printf("ne moze da se otvori vleznata datoteka\n");
+        return (-1);
+    }
+    while((c=fgetc(fin))!=EOF){
+        if (isalpha(c)){
+            if (!vozbor){
+                    vozbor=1;
+            }
+            zbor[j]=c;
+            j++;
+}
+else if (vozbor){
+vozbor=0;
+zbor[j]='\0';
+if (proverka(zbor)){
+puts(zbor);
+vk++;
+}
+zbor[0]='\0';
+j=0;
+}
+}
+    printf("vkupno %d zborovi\n",vk);
+    fclose(fin);
+return 0;
+}

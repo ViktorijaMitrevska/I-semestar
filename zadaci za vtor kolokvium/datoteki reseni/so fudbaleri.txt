@@ -1,0 +1,44 @@
+/* Во секој ред на влезната датотека се сместени: презиме на играч (не содржи празно место) и колку погодоци имал во четири кола. Притоа, во влезната датотека 
+податоците се одделени со едно празно место. Програмата во излезна датотека, треба во посебен ред да ги запише оние играчи кои што треба да се наградат. 
+Наградата се добива ако играчот дал во просек повеќе од 5 голови. Дополнително после презимето на играчот, да се запише и просекот на истиот и на крај 
+од излезната датотека да се запише колку играчи треба да се наградат. Исто така, да се провери дали правилно се користи програмата, ако не, да се даде упатство 
+за користење.Пример за валидни аргументи од командна линија: ./a.out p1.txt p2.txta.out p1.txt p2.txt
+Пример:
+Влезна датотека (p1.txt): Излезна датотека (p2.txt):
+Ronaldo 5 5 6 5              Ronaldo 5.25
+Mсеssi 4 5 4 5               1
+Inieсеsta 3 3 3 3*/
+#include<stdio.h> 
+#include<string.h>
+#include<stdlib.h>
+int main(int argc, char *argv[]){
+    char ime[20];
+    int g1,g2,g3,g4;
+    float suma=0;
+    int brojac=0;
+    FILE *fin, *fout;
+    if(argc!=3){
+        printf("nevalidno otvoranje na %s datoteka");
+        return 0;
+    }
+    if((fin=fopen("p1.txt","r"))==NULL){
+        printf("ne moze da se otvori vleznata datoteka\n");
+        return (-1);
+    }
+    if((fout=fopen("p2.txt","w"))==NULL){
+        printf("ne moze da se otvori izleznata datoteka\n");
+        return (-1);
+    }
+    while(fscanf(fin,"%s %d %d %d %d",ime,&g1,&g2,&g3,&g4)!=EOF){
+        suma=0;
+        suma=(float)(g1+g2+g3+g4)/4;
+        if(suma>5){
+            fprtintf(fout,"%s %2.f",ime,suma);
+            brojac ++;
+        }
+    }
+    fprintf(fout,"%d",brojac);
+    fclose(fin);
+    fclose(fout);
+return 0; 
+}

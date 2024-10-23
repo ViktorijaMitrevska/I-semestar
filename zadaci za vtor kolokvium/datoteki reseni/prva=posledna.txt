@@ -1,0 +1,35 @@
+/* Да се напише програма која за дадена текстуална датотека ќе изброи колку зборови подолги од 3
+букви почнуваат и завршуваат на иста буква. Да не е прави разлика меѓу голема и мала буква.
+Зборовите се составени од произволен број на букви, а меѓусебно се одделени со најмалку еден
+специјален знак, цифра или белина. Името на влезната датотека се задава од командна линија, а
+доколку не е зададено се чита од стандардниот влез..*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+int main(int argc,char *argv[]){
+    int vozbor=0,j=0,vkupno=0;
+    char c,prva, posledna;
+    FILE *fin;
+    if((fin=fopen("text.txt","r"))==NULL){
+        printf("ne moze da se otvori vleznata datoteka\n");
+        return (-1);
+    }
+    while((c=fgetc(fin))!=EOF){
+          if(isalpha(c)){
+            if(!(vozbor)){
+                vozbor=1;
+                prva=c;
+            }
+            j++;
+            posledna=c;
+        }
+        else if(vozbor){
+            if((j>3)&&(toupper(prva)==toupper(posledna))){vkupno++;}
+            j=0;
+        }
+    }
+  printf("%d zborovi go ipolnuvaat uslovot\n",vkupno);
+    fclose(fin);
+return 0;
+}
